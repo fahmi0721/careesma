@@ -1,0 +1,59 @@
+.title.title-form::before {
+    border-color: #ecf0f1 #ecf0f1 #161616 #161616;
+}
+.title::before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    border-width: 0 16px 16px 0;
+    border-style: solid;
+    border-color: transparent transparent transparent transparent;
+}
+.title{
+	background: #2a2a2a;
+	padding: 8px 10px 8px 10px;
+	color: #fff;
+}
+.radio label.custom-radio{
+    padding-left: 5px;
+}
+
+
+
+.box-tk-utama{
+    width: 100%;
+    padding-bottom: 30px;
+}
+.box-image{
+    width: 100%;
+    margin-top: 10px;
+}
+.box-image img{
+    max-width: 100%;
+    height: 200px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.box-unit-kerja{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+.box-caption{
+    width: 100%;
+    text-align: center;
+    /* font-size: 12px; */
+}
+.box-caption h4{
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    padding :0;
+    
+}
