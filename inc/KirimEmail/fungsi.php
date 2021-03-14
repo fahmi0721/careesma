@@ -86,8 +86,10 @@ require '../../vendor/autoload.php';
             $mail->SMTPAuth   = true; 
             // $mail->SMTPSecure = false;
             // $mail->SMTPAutoTLS = false;                                  //Enable SMTP authentication
-            $mail->Username   = 'ptintansejahterautama@gmail.com';                     //SMTP username
-            $mail->Password   = 'passwordEmail';                               //SMTP password
+            // $mail->Username   = 'ptintansejahterautama@gmail.com';                     //SMTP username
+            // $mail->Password   = 'passwordEmail';                
+            $mail->Username   = 'fahmiidrus131@gmail.com';                     //SMTP username
+            $mail->Password   = 'Suksesselalu';                               //SMTP password
             $mail->SMTPSecure = "ssl";         //Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
             $mail->Port       = 465;                                    //TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
             $mail->SMTPOptions = array(
