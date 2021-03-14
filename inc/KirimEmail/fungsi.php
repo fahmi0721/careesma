@@ -80,7 +80,7 @@ require '../../vendor/autoload.php';
         $pesan = Pesan($data['Pesan']);
         try {
             //Server settings
-            $mail->SMTPDebug = 3;                      //Enable verbose debug output
+            $mail->SMTPDebug = 0;                      //Enable verbose debug output
            $mail->isSMTP();                                            //Send using SMTP
             $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
             $mail->SMTPAuth   = true; 
