@@ -1,7 +1,25 @@
 <?php 
 // include "fungsi.php";
+function CekDataLulus($IdJ){
+    $IdUser = getIdUser();
+    $IdUser = !empty($IdUser['Id']) ? $IdUser['Id'] : "";
+    $sql = "SELECT COUNT(Id) as tot FROM  careesma_lulus  WHERE IdUser = '$IdUser' AND IdJobVacancy = '$IdJ'";
+    $query = $GLOBALS['db']->query($sql);
+    $r = $query->fetch(PDO::FETCH_ASSOC);
+    return $r['tot'];
+}
+function getIdUser(){
+    $email = $_SESSION['Careesma_Username'];
+    $sql = "SELECT * FROM careesma_data_diri WHERE Email = '$email'";
+    $query = $GLOBALS['db']->query($sql);
+    $r = $query->fetch(PDO::FETCH_ASSOC);
+    return $r;
+}
 if(isset($_GET['SoalId'])){
+    
     $IdJ = filter_var($_GET['SoalId'],FILTER_SANITIZE_STRING);
+    $cekLulus = CekDataLulus($IdJ);
+    if($cekLulus > 0){
     ?>
     <input type='hidden' value='<?= $IdJ ?>' id='IdJ' />
     <div class='row'>
@@ -80,7 +98,12 @@ if(isset($_GET['SoalId'])){
     </div>
     </div>
     </div>
-<?php }else{
+<?php 
+}else{
+    echo "<script>alert('anda tidak terdaftar dalam ujian ini'); window.location='index.php'</script>";
+
+} 
+}else{
     echo "<script>alert('halaman tidak ditemukan'); window.location='index.php'</script>";
 
 } ?>

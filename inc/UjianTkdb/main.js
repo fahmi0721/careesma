@@ -196,7 +196,7 @@ function SubmitSelesaiPaksa() {
 		success: function (res) {
 			r = JSON.parse(res);
 			if (r['status'] == "sukses") {
-				alert("Waktu anda telah habis terima kasih telah mengikuti TKDB ini.");
+				alert("Waktu anda telah habis. Terima kasih telah mengikuti ujian TKDB, jiika anda lulus kami akan menginformasikan melalui email yang terdaftar pada akun anda");
 				window.location = 'index.php?page=Lamaranku';
 			} else {
 				alert("maaf terjadi kesalahan sistem. :" + r['message']);
@@ -217,7 +217,7 @@ function SubmitSelesai(){
 		success: function(res){
 			r = JSON.parse(res);
 			if(r['status'] == "sukses"){
-				alert("terima kasih mengikuti tes TKDB ini.. silahkan lihat nilai anda.");
+				alert("Terima kasih telah mengikuti ujian TKDB, jiika anda lulus kami akan menginformasikan melalui email yang terdaftar pada akun anda");
 				window.location = 'index.php?page=Lamaranku';
 			}else{
 				alert("maaf terjadi kesalahan sistem. :"+r['message']);

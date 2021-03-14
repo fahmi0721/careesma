@@ -1,4 +1,6 @@
 <?php
+
+
 // 1
 function CreateSessionSoal($IdJ){
     $sql = "SELECT Soal FROM careesma_tkdb_soal WHERE IdJobVacancy = '".$IdJ."' LIMIT 1";

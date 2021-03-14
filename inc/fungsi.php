@@ -186,7 +186,8 @@
 
     function JumSertifikat(){
         $IdUser = LoadDataDiriP();
-        $sql = "SELECT COUNT(Id) as tot FROM careesma_sertifikasi WHERE IdUser = '$IdUser[Id]'";
+        $IdUser = !empty($IdUser['Id']) ? $IdUser['Id'] : "";
+        $sql = "SELECT COUNT(Id) as tot FROM careesma_sertifikasi WHERE IdUser = '$IdUser'";
         $query = $GLOBALS['db']->query($sql);
         $r = $query->fetch(PDO::FETCH_ASSOC);
         return empty($r['tot']) ? 0 : $r['tot'];
@@ -194,7 +195,8 @@
 
     function JumPk(){
         $IdUser = LoadDataDiriP();
-        $sql = "SELECT COUNT(Id) as tot FROM careesma_pengalaman_kerja WHERE IdUser = '$IdUser[Id]'";
+        $IdUser = !empty($IdUser['Id']) ? $IdUser['Id'] : "";
+        $sql = "SELECT COUNT(Id) as tot FROM careesma_pengalaman_kerja WHERE IdUser = '$IdUser'";
         $query = $GLOBALS['db']->query($sql);
         $r = $query->fetch(PDO::FETCH_ASSOC);
         return empty($r['tot']) ? 0 : $r['tot'];
@@ -202,7 +204,8 @@
 
     function JumLmr(){
         $IdUser = LoadDataDiriP();
-        $sql = "SELECT COUNT(Id) as tot FROM careesma_daftar WHERE IdUser = '$IdUser[Id]'";
+        $IdUser = !empty($IdUser['Id']) ? $IdUser['Id'] : "";
+        $sql = "SELECT COUNT(Id) as tot FROM careesma_daftar WHERE IdUser = '$IdUser'";
         $query = $GLOBALS['db']->query($sql);
         $r = $query->fetch(PDO::FETCH_ASSOC);
         return empty($r['tot']) ? 0 : $r['tot'];

@@ -22,6 +22,8 @@ echo "<ul class='sidebar-menu' data-widget='tree'>";
         echo "<li $cekAktif><a href='index.php?page=Loker'><i class='fa fa-paper-plane-o'></i> <span>Loker</span></a></li>";
         $cekAktif = $pages == "Lamaranku" ? "class='active'" : "";
         echo "<li $cekAktif><a href='index.php?page=Lamaranku'><i class='fa fa-paper-plane'></i> <span>Lamaranku</span></a></li>";
+        $cekAktif = $pages == "ListTkdb" ? "class='active'" : "";
+        echo "<li $cekAktif><a href='index.php?page=ListTkdb'><i class='fa fa-book'></i> <span>TKDB</span></a></li>";
         // $cekAktif = $pages == "UjianTkdb" ? "class='active'" : "";
         // echo "<li $cekAktif><a href='index.php?page=UjianTkdb'><i class='fa fa-book'></i> <span>Ujian Tkdb</span></a></li>";
     }

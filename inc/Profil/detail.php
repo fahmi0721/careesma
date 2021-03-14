@@ -138,6 +138,17 @@
                                 <option value='BUDHA' <?php if($DataDiri['Agama'] == "BUDHA"){ echo "selected"; } ?>>BUDHA</option>
                                 <option value='KONGHUCU' <?php if($DataDiri['Agama'] == "KONGHUCU"){ echo "selected"; } ?>>KONGHUCU</option>
                             </select>
+                            <label class='control-label'>File Ijazah Terkahir <span class='text-danger'>*</span></label>
+                            <div class='input-group'>
+                                <input type='file' data-toggle='tooltip' name='FileIjazah' id='FileIjazah' title='maximal file 2mb dan hanya file pdf' class='form-control' accept='.pdf'  name='File' id='File'  />
+                                <span class='input-group-addon'><i class='fa fa-file'></i></span>
+                            </div>
+
+                            <label class='control-label'>Foto Ktp <span class='text-danger'>*</span></label>
+                            <div class='input-group'>
+                                <input type='file' data-toggle='tooltip' name='FileKtp' id='FileKtp' title='maximal file 2mb dan hanya file gambar *(jpg,jpeg,png)' class='form-control' accept='.jpg,jpeg,png'  name='File' id='File'  />
+                                <span class='input-group-addon'><i class='fa fa-file'></i></span>
+                            </div>
                             
                         </div>
                         <div class='col-md-6'>

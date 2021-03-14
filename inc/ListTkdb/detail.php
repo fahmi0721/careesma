@@ -1,6 +1,6 @@
 <?php
-include_once "inc/Lamaranku/fungsi.php";
-$LowongasNew = LoadLowongan();
+include_once "inc/ListTkdb/fungsi.php";
+$LowongasNew = LoadData();
 if($_SESSION['Careesma_Level'] == "1"){
 
 ?>
@@ -13,7 +13,7 @@ if($_SESSION['Careesma_Level'] == "1"){
 <div class='row'>
     <?php
         foreach ($LowongasNew['data'] as $res) {
-        $cekDataDaftar = CekDaftar($res['Id']);  
+        $cekBerkas = CekBerkas();
         $LowonganTerdaftar = LowonganTerdaftarNilai($res['Id']);  
     ?>
     <div class='col-sm-6 col-xs-12'>
@@ -35,14 +35,13 @@ if($_SESSION['Careesma_Level'] == "1"){
             </div>
             <div class="box-footer">
                 <span class='pull-right'>
-                    <?php if($LowonganTerdaftar > 0) { ?>
-                            <!-- <a class='btn btn-success btn-sm btn-flat' onclick="#"><i class='fa fa-book'></i> Lihat Skor</a> -->
-                            <small>Ujian TKDB telah dilaksanakan</small>
-                    <?php }else{ ?>
-                    <?php if($cekDataDaftar > 0) { ?>
-                        <!-- <a class='btn btn-primary' href='#'><i class='fa fa-book'></i> Ujian TKDB</a> -->
-                    <?php } ?>
-                    <?php } ?>
+                    <?php 
+                        if($cekBerkas){
+                            echo "<a class='btn btn-primary' href='index.php?page=UjianTkdb&SoalId=".$res['Id']."'><i class='fa fa-book'></i> Ujian TKDB</a>";
+                        }else{
+                            echo "<a class='btn btn-primary' href='index.php?page=Profil'><i class='fa fa-user'></i> Lengkapi Berkas</a>";
+                        }
+                    ?>
                     
                 </span>
             </div>

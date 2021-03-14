@@ -47,22 +47,36 @@
         return $r;
     }
 
-    function UpdateDataDiri($data){
+    function UpdateDataDiri($data,$files){
         try {
             $koneksi = $GLOBALS['db'];
-            $sql = "UPDATE careesma_data_diri SET TptLahir = :TptLahir, TglLahir = :TglLahir, JK = :JK, Pendidikan = :Pendidikan, NoHp = :NoHp, Agama = :Agama, Alamat = :Alamat WHERE Id = :Id";
-            $query = $koneksi->prepare($sql);
-            $query->bindParam("TptLahir",$data['TptLahir']);
-            $query->bindParam("TglLahir",$data['TglLahir']);
-            $query->bindParam("JK",$data['JK']);
-            $query->bindParam("Pendidikan",strtoupper($data['Pendidikan']));
-            $query->bindParam("NoHp",$data['NoHp']);
-            $query->bindParam("Agama",$data['Agama']);
-            $query->bindParam("Alamat",$data['Alamat']);
-            $query->bindParam("Id",$data['Id']);
-            $query->execute();
-            $res['status'] = "sukses";
-            $res['pesan'] = "berhail";
+            $dirIjazah = "../../img/Ijazah/";
+            $dirKtp = "../../img/Ktp/";
+            $ValidasiIjazah = ValidasiFile($files['FileIjazah'],$dirIjazah);
+            $ValidasiKtp = ValidasiFile($files['FileKtp'],$dirKtp);
+            if( $ValidasiKtp['msg'] == "sukses" && $ValidasiIjazah['msg'] == "sukses"){
+                $FileIjazah = $ValidasiIjazah['pesan'];
+                $FileKtp = $ValidasiKtp['pesan'];
+                $pend = strtoupper($data['Pendidikan']);
+                $sql = "UPDATE careesma_data_diri SET TptLahir = :TptLahir, TglLahir = :TglLahir, JK = :JK, Pendidikan = :Pendidikan, NoHp = :NoHp, Agama = :Agama, Alamat = :Alamat, FileIjazah = :FileIjazah, FileKtp = :FileKtp WHERE Id = :Id";
+                $query = $koneksi->prepare($sql);
+                $query->bindParam("TptLahir",$data['TptLahir']);
+                $query->bindParam("TglLahir",$data['TglLahir']);
+                $query->bindParam("JK",$data['JK']);
+                $query->bindParam("Pendidikan",$pend);
+                $query->bindParam("NoHp",$data['NoHp']);
+                $query->bindParam("Agama",$data['Agama']);
+                $query->bindParam("Alamat",$data['Alamat']);
+                $query->bindParam("FileIjazah",$FileIjazah);
+                $query->bindParam("FileKtp",$FileKtp);
+                $query->bindParam("Id",$data['Id']);
+                $query->execute();
+                $res['status'] = "sukses";
+                $res['pesan'] = "berhail";
+            }else{
+                $res['status'] = "gagal";
+                $res['pesan'] = "Periksa kembali file ijazah terakhir & foto ktp anda"; 
+            }
         } catch (PDOException $e) {
             $res['status'] = "gagal";
             $res['pesan'] = $e->getMessage();

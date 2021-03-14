@@ -45,8 +45,8 @@ $("#FormDataPribadi").submit(function(e){
 });
 
 function ValidasiDataPribadi(){
-	var iForm = [ "TptLahir", "TglLahir", "Pendidikan", "NoHp","Email","Agama","Alamat"];
-	var iKet = ["Tempat lahir belum lengkap", "Taggal lahir belum lengkap", "Pendidikan belum lengkap","No Hp belum lengkap", "Email belum lengkap","Agama belum lengkap", "Alamat belum legkap"];
+	var iForm = [ "TptLahir", "TglLahir", "Pendidikan", "NoHp","Email","Agama","Alamat","FileIjazah","FileKtp"];
+	var iKet = ["Tempat lahir belum lengkap", "Taggal lahir belum lengkap", "Pendidikan belum lengkap","No Hp belum lengkap", "Email belum lengkap","Agama belum lengkap", "Alamat belum legkap","File Ijzah belum legkap","Foto Ktp belum legkap"];
 	for(var i=0; i < iForm.length; i++){
 		if($("#"+iForm[i]).val() == ""){
 			Customerror("Profil", "002", iKet[i], 'proses_data_diri'); $("#" + iForm[i]).focus(); scrolltop(); return false; 
@@ -56,11 +56,14 @@ function ValidasiDataPribadi(){
 
 function UpdateDataPribadi(){
 	if(ValidasiDataPribadi() != false){
-		var iData = $("#FormDataPribadi").serialize();
+		var iData = new FormData($("#FormDataPribadi")[0]);
 		$.ajax({
 			type : "POST",
 			url : "inc/Profil/proses.php?proses=UpdateDataDiri",
 			data : iData,
+			chace: false,
+			processData : false,
+			contentType : false,
 			beforeSend : function(e){
 				StartLoad();
 			},

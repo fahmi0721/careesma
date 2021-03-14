@@ -7,7 +7,7 @@ $proses = isset($_REQUEST['proses']) ? $_REQUEST['proses'] : "";
 switch ($proses) {
 	case 'UpdateDataDiri':
 		try {
-			$result = UpdateDataDiri($_POST);
+			$result = UpdateDataDiri($_POST,$_FILES);
 		} catch (PDOException $e) {
 			$result = $e->getMessage();
 		}
