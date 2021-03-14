@@ -81,25 +81,26 @@ require '../../vendor/autoload.php';
         try {
             //Server settings
             $mail->SMTPDebug = 0;                      //Enable verbose debug output
-           $mail->isSMTP();                                            //Send using SMTP
+            $mail->isSMTP();                                            //Send using SMTP
             $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
             $mail->SMTPAuth   = true; 
+            $mail->Mailer   = "smtp";
             // $mail->SMTPSecure = false;
             // $mail->SMTPAutoTLS = false;                                  //Enable SMTP authentication
             // $mail->Username   = 'ptintansejahterautama@gmail.com';                     //SMTP username
             // $mail->Password   = 'passwordEmail';                
             $mail->Username   = 'fahmiidrus131@gmail.com';                     //SMTP username
             $mail->Password   = 'Suksesselalu';                               //SMTP password
-            $mail->SMTPSecure = "ssl";         //Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-            $mail->Port       = 465;          
+            $mail->SMTPSecure = "tls";         //Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+            $mail->Port       = 587;          
                                       //TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
-            $mail->SMTPOptions = array(
-                'ssl' => array(
-                    'verify_peer' => false,
-                    'verify_peer_name' => false,
-                    'allow_self_signed' => true
-                )
-            );
+            // $mail->SMTPOptions = array(
+            //     'ssl' => array(
+            //         'verify_peer' => false,
+            //         'verify_peer_name' => false,
+            //         'allow_self_signed' => true
+            //     )
+            // );
             //Recipients
             $mail->setFrom('ptintansejahterautama@gmail.com', 'ADMIN PT ISMA');
             $mail->addAddress($data['Email'], $data['Nama']); 
