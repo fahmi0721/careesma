@@ -388,7 +388,7 @@
 
     function cekLowongan(){
         $now = date("Y-m-d");
-        $sql = "SELECT COUNT(Id) as tot FROM careesma_job_vacansy WHERE TglBerlaku >= '$now'";
+        $sql = "SELECT COUNT(Id) as tot FROM careesma_job_vacansy";
         $query = $GLOBALS['db']->query($sql);
         $r = $query->fetch(PDO::FETCH_ASSOC);
         return $r['tot'];
@@ -396,7 +396,7 @@
 
     function LiveUjian(){
         $now = date("Y-m-d");
-        $sql = "SELECT  a.WaktuMulai, a.UserId, a.IdJobVacancy FROM careesma_tkdb a INNER JOIN careesma_job_vacansy b ON a.IdJobVacancy = b.Id WHERE b.TglBerlaku >= '$now' AND (WaktuSelesai is null  )";
+        $sql = "SELECT  a.WaktuMulai, a.UserId, a.IdJobVacancy FROM careesma_tkdb a INNER JOIN careesma_job_vacansy b ON a.IdJobVacancy = b.Id WHERE  (WaktuSelesai is null  )";
         $query = $GLOBALS['db']->query($sql);
         $r = array();
         $row = $query->rowCount();
@@ -414,7 +414,7 @@
 
     function LiveNilai(){
         $now = date("Y-m-d");
-        $sql = "SELECT a.WaktuMulai, a.UserId, a.IdJobVacancy FROM careesma_tkdb a INNER JOIN careesma_job_vacansy b ON a.IdJobVacancy = b.Id  WHERE b.TglBerlaku >= '$now' AND a.WaktuSelesai IS NOT NULL";
+        $sql = "SELECT a.WaktuMulai, a.UserId, a.IdJobVacancy FROM careesma_tkdb a INNER JOIN careesma_job_vacansy b ON a.IdJobVacancy = b.Id  WHERE AND a.WaktuSelesai IS NOT NULL";
         $query = $GLOBALS['db']->query($sql);
         $r = array();
         $row = $query->rowCount();
