@@ -14,7 +14,7 @@
 
     function Filter($str){
         if(!empty($str)){
-            $result = "AND (a.Nama LIKE '%".$str."%')";
+            $result = "AND (a.Nama LIKE '%".$str."%' OR a.NoKtp LIKE '%".$str."%')";
         }else{
             $result = "";
         }
@@ -41,7 +41,7 @@
             $offset=($Page - 1) * $RowPage;
             $no=$offset+1;
             $FilterSearch = Filter($Search);
-            $sql = "SELECT a.*, YEAR(CURDATE()) - YEAR(a.TglLahir) as Usia  FROM careesma_data_diri a INNER JOIN careesma_daftar b ON a.Id = b.IdUser WHERE b.IdJobVacancy = '$data[IdLowongan]'";
+            $sql = "SELECT a.*, YEAR(CURDATE()) - YEAR(a.TglLahir) as Usia  FROM careesma_data_diri a INNER JOIN careesma_daftar b ON a.Id = b.IdUser WHERE b.IdJobVacancy = '$data[IdLowongan]' $FilterSearch";
             $query = $db->query($sql);
             $JumRow = $query->rowCount();
             $total_page = ceil($JumRow / $RowPage);
