@@ -14,6 +14,7 @@ if($_SESSION['Careesma_Level'] == "1"){
     <?php
         foreach ($LowongasNew['data'] as $res) {
         $cekBerkas = CekBerkas();
+        $CekSoal = CekSoal($res['Id']);
         $LowonganTerdaftar = LowonganTerdaftarNilai($res['Id']);  
     ?>
     <div class='col-sm-6 col-xs-12'>
@@ -37,7 +38,11 @@ if($_SESSION['Careesma_Level'] == "1"){
                 <span class='pull-right'>
                     <?php 
                         if($cekBerkas){
-                            echo "<a class='btn btn-primary' href='index.php?page=UjianTkdb&SoalId=".$res['Id']."'><i class='fa fa-book'></i> Ujian TKDB</a>";
+                            if($CekSoal){
+                                echo "<a class='btn btn-primary' href='index.php?page=UjianTkdb&SoalId=".$res['Id']."'><i class='fa fa-book'></i> Ujian TKDB</a>";
+                            }else{
+                                echo "<span class='text-success'>Soal Belum dibuka</span>";
+                            }
                         }else{
                             echo "<a class='btn btn-primary' href='index.php?page=Profil'><i class='fa fa-user'></i> Lengkapi Berkas</a>";
                         }

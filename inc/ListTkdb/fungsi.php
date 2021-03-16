@@ -1,4 +1,16 @@
 <?php
+
+    function CekSoal($Id){
+        $sql = "SELECT COUNT(Id) as tot FROM careesma_tkdb_soal WHERE IdJobVacancy = '$Id'";
+        $row = $GLOBALS['db']->query($sql);
+        $row = $row->fetch(PDO::FETCH_ASSOC);
+        if($row['tot'] > 0){
+            return TRUE;
+        }else{
+            return FALSE;
+        }
+    }
+
     function LoadData(){
         $IdUser = LoadDataDiri();
         $IdUser = empty($IdUser['Id']) ? "" : $IdUser['Id'];

@@ -5,7 +5,7 @@
 	    PDO::ATTR_ORACLE_NULLS => PDO::NULL_EMPTY_STRING
 	];
 	try{
-		$db=new PDO('mysql:host=localhost;dbname=u7151562_careesma','u7151562_efisma','Efisma12345',$options);
+		$db=new PDO('mysql:host=localhost;dbname=creesma','root','',$options);
 	}catch(PDOException $e) {
 	    die("Database connection failed: " . $e->getMessage());
 	}
