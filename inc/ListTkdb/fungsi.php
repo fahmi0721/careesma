@@ -1,7 +1,8 @@
 <?php
 
     function CekSoal($Id){
-        $sql = "SELECT COUNT(Id) as tot FROM careesma_tkdb_soal WHERE IdJobVacancy = '$Id'";
+        $now = date("Y-m-d");
+        $sql = "SELECT COUNT(Id) as tot FROM careesma_tkdb_soal WHERE IdJobVacancy = '$Id' AND DATE_FORMAT(TglCreate, '%Y-%m-%d') = '$now'";
         $row = $GLOBALS['db']->query($sql);
         $row = $row->fetch(PDO::FETCH_ASSOC);
         if($row['tot'] > 0){
