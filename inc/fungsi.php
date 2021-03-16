@@ -414,7 +414,7 @@
 
     function LiveNilai(){
         $now = date("Y-m-d");
-        $sql = "SELECT a.WaktuMulai, a.UserId, a.IdJobVacancy FROM careesma_tkdb a INNER JOIN careesma_job_vacansy b ON a.IdJobVacancy = b.Id  WHERE AND a.WaktuSelesai IS NOT NULL";
+        $sql = "SELECT a.WaktuMulai, a.UserId, a.IdJobVacancy FROM careesma_tkdb a INNER JOIN careesma_job_vacansy b ON a.IdJobVacancy = b.Id  WHERE  a.WaktuSelesai IS NOT NULL";
         $query = $GLOBALS['db']->query($sql);
         $r = array();
         $row = $query->rowCount();
