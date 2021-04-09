@@ -8,9 +8,14 @@
     $_SESSION['IdUser'] = $DataDiri['Id'];
     $DataSerifikasi = LoadSertifikasi();
     $DataKerja = LoadKerja();
-    
-    
+    $CekDataDiri = "Kosong";
+    if(!empty($DataDiri['FileIjazah']) && !empty($DataDiri['FileKtp'])){
+        $CekDataDiri = "lengkap";
+    }
 ?>
+
+<?php if($CekDataDiri == "Kosong"){ $inpCek = "aktif"; }else{ $inpCek = "nonaktif"; } ?>
+<input type="hidden" value='<?= $inpCek ?>' id='inpCek'>
 <div class="row">
     <div class="col-md-3">
         <!-- Profile Image -->
@@ -138,18 +143,18 @@
                                 <option value='BUDHA' <?php if($DataDiri['Agama'] == "BUDHA"){ echo "selected"; } ?>>BUDHA</option>
                                 <option value='KONGHUCU' <?php if($DataDiri['Agama'] == "KONGHUCU"){ echo "selected"; } ?>>KONGHUCU</option>
                             </select>
-                            <label class='control-label'>File Ijazah Terkahir <span class='text-danger'>*</span></label>
+                            <label class='control-label'>File Ijazah Terkahir <?php if($CekDataDiri == "lengkap"){ ?> <small class='label label-info label-xs'>file telah ada</small> <?php }else{ ?> <span class='text-danger'>*</span> <?php } ?></label>
                             <div class='input-group'>
                                 <input type='file' data-toggle='tooltip' name='FileIjazah' id='FileIjazah' title='maximal file 2mb dan hanya file pdf' class='form-control' accept='.pdf'  name='File' id='File'  />
                                 <span class='input-group-addon'><i class='fa fa-file'></i></span>
                             </div>
 
-                            <label class='control-label'>Foto Ktp <span class='text-danger'>*</span></label>
+                            <label class='control-label'>Foto Ktp <?php if($CekDataDiri == "lengkap"){ ?> <small class='label label-info label-xs'>file telah ada</small> <?php }else{ ?> <span class='text-danger'>*</span> <?php } ?></label>
                             <div class='input-group'>
                                 <input type='file' data-toggle='tooltip' name='FileKtp' id='FileKtp' title='maximal file 2mb dan hanya file gambar *(jpg,jpeg,png)' class='form-control' accept='.jpg,jpeg,png'  name='File' id='File'  />
                                 <span class='input-group-addon'><i class='fa fa-file'></i></span>
                             </div>
-                            
+                           
                         </div>
                         <div class='col-md-6'>
                             <label class='control-label'>Alamat <span class='text-danger'>*</span></label>

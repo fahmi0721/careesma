@@ -74,8 +74,19 @@
                 $res['status'] = "sukses";
                 $res['pesan'] = "berhail";
             }else{
-                $res['status'] = "gagal";
-                $res['pesan'] = "Periksa kembali file ijazah terakhir & foto ktp anda"; 
+                $sql = "UPDATE careesma_data_diri SET TptLahir = :TptLahir, TglLahir = :TglLahir, JK = :JK, Pendidikan = :Pendidikan, NoHp = :NoHp, Agama = :Agama, Alamat = :Alamat WHERE Id = :Id";
+                $query = $koneksi->prepare($sql);
+                $query->bindParam("TptLahir",$data['TptLahir']);
+                $query->bindParam("TglLahir",$data['TglLahir']);
+                $query->bindParam("JK",$data['JK']);
+                $query->bindParam("Pendidikan",$pend);
+                $query->bindParam("NoHp",$data['NoHp']);
+                $query->bindParam("Agama",$data['Agama']);
+                $query->bindParam("Alamat",$data['Alamat']);
+                $query->bindParam("Id",$data['Id']);
+                $query->execute();
+                $res['status'] = "sukses";
+                $res['pesan'] = "berhail";
             }
         } catch (PDOException $e) {
             $res['status'] = "gagal";

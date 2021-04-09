@@ -51,6 +51,13 @@
 
     }
 
+    function cekKuota($IdJ){
+        $sql = "SELECT COUNT(Id) as tot FROM careesma_daftar WHERE IdJobVacancy = '$IdJ'";
+        $query = $GLOBALS['db']->query($sql);
+        $res = $query->fetch(PDO::FETCH_ASSOC);
+        return $res['tot'];
+    }
+
 
     function LoadDataDiri(){
         $Email = $_SESSION['Careesma_Username'];
