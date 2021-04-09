@@ -67,7 +67,36 @@
                                 <span class='input-group-addon'><i class='fa fa-image'></i></span>
                             </div>
                         </div>
-                        
+
+                        <div class='col-sm-6 col-md-6'>
+                            <label class='control-label'>Flag <span class='text-danger'>*</span></label>
+                            <div class='input-group'>
+                                <span class='input-group-addon'><input type="radio" name='Flag' id='Flag1' value='1' checked></span>
+                                <input type="text" value='Aktif' class='form-control' readonly>
+                                <span class='input-group-addon'><input type="radio" name='Flag' id='Flag0' value='0'></span>
+                                <input type="text" value='Tidak Aktif' class='form-control' readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <legend>Persyaratan Khusus</legend>
+                    <div class='form-group'>
+                        <div class='col-sm-6 col-md-6'>
+                            <label class='control-label'>Batas Usia <span class='text-danger'>*</span></label>
+                            <div class='input-group'>
+                                <input class='form-control' type='text' name='BatasUsia' id='BatasUsia' />
+                                <span class='input-group-addon'>Tahun</span>
+                            </div>
+                        </div>
+
+                        <div class='col-sm-6 col-md-6'>
+                            <label class='control-label'>Dokumen Khusus (SIM B2 Umum,SIO,KTA) <span class='text-danger'>*</span></label>
+                            <div class='input-group'>
+                                <span class='input-group-addon'><input type="radio" name='DokumenKhusus' id='DokumenKhususYa' value='Ya' checked></span>
+                                <input type="text" value='Ya' class='form-control' readonly>
+                                <span class='input-group-addon'><input type="radio" name='DokumenKhusus' id='DokumenKhususTidak' value='Tidak'></span>
+                                <input type="text" value='Tidak' class='form-control' readonly>
+                            </div>
+                        </div>
                     </div>
                     <div class='form-group'>
                         <div class='col-sm-6 col-md-6'>

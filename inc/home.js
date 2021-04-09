@@ -12,7 +12,10 @@ $(document).ready(function () {
 
         setInterval(function () {
             RealTimeNilaiTkdb();
+            RealTimeFinishData();
         }, 10000);
+
+        
        
     }
 });
@@ -74,8 +77,24 @@ function CahrData(data, Id) {
     pieChart.Doughnut(PieData, pieOptions)
 }
 
-function RealTimeUjianTkdb(){
+function RealTimeFinishData(){
+    $.ajax({
+        type : "GET",
+        url : "inc/proses.php",
+        chace : false,
+        data: "proses=ExecuteDataLama",
+        success : function(res){
+            var r = JSON.parse(res);
+            console.log(res);
+            
+        },
+        error : function(er){
+            console.log(er);
+        }
+    })
+}
 
+function RealTimeUjianTkdb(){
     $.ajax({
         type : "GET",
         url : "inc/proses.php",

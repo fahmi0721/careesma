@@ -396,7 +396,7 @@
 
     function LiveUjian(){
         $now = date("Y-m-d");
-        $sql = "SELECT  a.WaktuMulai, a.UserId, a.IdJobVacancy FROM careesma_tkdb a INNER JOIN careesma_job_vacansy b ON a.IdJobVacancy = b.Id WHERE  (WaktuSelesai is null  )";
+        $sql = "SELECT a.WaktuMulai, a.UserId, a.IdJobVacancy FROM careesma_tkdb a INNER JOIN careesma_job_vacansy b ON a.IdJobVacancy = b.Id WHERE  (WaktuSelesai is null  ) AND DATE_FORMAT(a.WaktuMulai, '%Y-%m-%d') = '$now'";
         $query = $GLOBALS['db']->query($sql);
         $r = array();
         $row = $query->rowCount();
@@ -414,7 +414,7 @@
 
     function LiveNilai(){
         $now = date("Y-m-d");
-        $sql = "SELECT a.WaktuMulai, a.UserId, a.IdJobVacancy FROM careesma_tkdb a INNER JOIN careesma_job_vacansy b ON a.IdJobVacancy = b.Id  WHERE b.TglBerlaku = '2021-02-28' AND a.WaktuSelesai IS NOT NULL";
+        $sql = "SELECT a.WaktuMulai, a.UserId, a.IdJobVacancy FROM careesma_tkdb a INNER JOIN careesma_job_vacansy b ON a.IdJobVacancy = b.Id  WHERE  DATE_FORMAT(a.WaktuMulai, '%Y-%m-%d') = '$now' AND (a.WaktuSelesai IS NOT NULL)";
         $query = $GLOBALS['db']->query($sql);
         $r = array();
         $row = $query->rowCount();
@@ -511,32 +511,52 @@
 
     function LoadRealTiimeTkdb(){
         $result = array();
-        $cekLowongan = cekLowongan();
-        if($cekLowongan > 0){
+        // $cekLowongan = cekLowongan();
+        // if($cekLowongan > 0){
             $res = LoadDataUjianLIve(0);
             $result['status'] = "sukses";
             $result['data'] = $res;
             return $result;
-        }else{
-            $result['status'] = "empty";
-            $result['data'] = array();
-            return $result;
-        }
+        // }else{
+        //     $result['status'] = "empty";
+        //     $result['data'] = array();
+        //     return $result;
+        // }
     }
 
     function RealTimeNilaiTkdb(){
         $result = array();
-        $cekLowongan = cekLowongan();
-        if($cekLowongan > 0){
+        // $cekLowongan = cekLowongan();
+        // if($cekLowongan > 0){
             $res = LoadDataNilaiLIve(0);
             $result['status'] = "sukses";
             $result['data'] = $res;
             return $result;
-        }else{
-            $result['status'] = "empty";
-            $result['data'] = array();
-            return $result;
+        // }else{
+        //     $result['status'] = "empty";
+        //     $result['data'] = array();
+        //     return $result;
+        // }
+    }
+
+    function ExecuteDataLama(){
+        $now = date("Y-m-d H:i:s");
+        $sql = "SELECT * FROM careesma_tkdb WHERE WaktuSelesai IS NULL";
+        $query = $GLOBALS['db']->query($sql);
+        $res = array();
+        while($dt = $query->fetch(PDO::FETCH_ASSOC)){
+            $tess = SelisihWaktu($now,$dt['WaktuMulai']);
+            if($tess['menit'] > 1){
+                UpdateTkdb($dt['Id']);
+            }
         }
+        return json_encode($tes);
+    }
+
+    function UpdateTkdb($Id){
+        $now = date("Y-m-d H:i:s");
+        $sql = "UPDATE careesma_tkdb SET WaktuSelesai = '$now' WHERE Id = '$Id'";
+        $query = $GLOBALS['db']->query($sql);
     }
 
 

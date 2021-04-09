@@ -1,7 +1,7 @@
 <?php
     function LoadLowongan(){
         $TglNow = date("Y-m-d");
-        $sql = "SELECT a.*, b.Nama FROM careesma_job_vacansy a  INNER JOIN careesma_kategori_job b ON a.IdKategori = b.Id WHERE a.TglBerlaku >= '$TglNow' ORDER BY a.Id DESC";
+        $sql = "SELECT a.*, b.Nama FROM careesma_job_vacansy a  INNER JOIN careesma_kategori_job b ON a.IdKategori = b.Id WHERE a.TglBerlaku >= '$TglNow' AND a.Flag = '1' ORDER BY a.Id DESC";
         $query = $GLOBALS['db']->query($sql);
         $res=array();
         $Row = $query->rowCount();
@@ -11,8 +11,49 @@
         $res['Jum'] = $Row;
         return $res;
     }
+
+    function cekKualifikasi($IdJ){
+        $data_diri = LoadDataDiri();
+        $sql = "SELECT Kriteria FROM careesma_job_vacansy WHERE Id = '$IdJ'";
+        $query = $GLOBALS['db']->query($sql);
+        $r = $query->fetch(PDO::FETCH_ASSOC);   
+        $kriteria = json_decode($r['Kriteria'],true);
+        if(!empty($kriteria)){
+            if(!empty($kriteria['BatasUsia'])){
+                $now = date("Y-m-d H:i:s");
+                $TglLahir = $data_diri['TglLahir']." ".date("H:i:s");
+                $selisih = SelisihWaktu($now,$TglLahir);
+                if($selisih['tahun'] < 17 || $selisih['tahun'] > $kriteria['BatasUsia']){
+                    $res['status'] = FALSE;
+                    $res['pesan'] = "gagal_usia";
+                    return $res;
+                }elseif($kriteria['DokumenKhusus'] == "Ya"){
+                    $cekSertifikat = cekDataSertifikat($data_diri['Id']);
+                    if($cekSertifikat <= 0){
+                        $res['status'] = FALSE;
+                        $res['pesan'] = "gagal_sertifikat";
+                        return $res;
+                    }
+                }
+                
+            }
+        }else{
+            
+            return $res;
+        }
+    }
+
+    function cekDataSertifikat($IdUser){
+        $sql = "SELECT COUNT(Id) as tot FROM careesma_sertifikasi WHERE IdUser = '$IdUser'";
+        $query = $GLOBALS['db']->query($sql);
+        $r = $query->fetch(PDO::FETCH_ASSOC);
+        return $r['tot'];
+
+    }
+
+
     function LoadDataDiri(){
-        $Email = $_SESSION['Username'];
+        $Email = $_SESSION['Careesma_Username'];
         $koneksi = $GLOBALS['db'];
         $query = $koneksi->prepare("SELECT * FROM careesma_data_diri WHERE Email = :Email");
         $query->bindParam("Email", $Email,PDO::PARAM_STR);

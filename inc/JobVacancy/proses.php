@@ -28,6 +28,9 @@ switch ($proses) {
 		switch ($aksi) {
 			case 'insert':
 				try {
+					$join['BatasUsia'] = $_POST['BatasUsia'];
+					$join['DokumenKhusus'] = $_POST['DokumenKhusus'];
+					$Kriteria = json_encode($join);
 					$data = array(
 						"IdKategori" => $_POST['IdKategori'],
 						"Judul" => $_POST['Judul'],
@@ -35,6 +38,8 @@ switch ($proses) {
 						"TglBerlaku" => $_POST['TglBerlaku'],
 						"DeskripsiPekerjaan" => $_POST['DeskripsiPekerjaan'],
 						"Persyaratan" => $_POST['Persyaratan'],
+						"Kriteria" => $Kriteria,
+						"Flag" => $_POST['Flag'],
 						"File" => $_FILES['Flayer'],
 						"Dir" => "../../img/Flayer/"
 					);
@@ -48,6 +53,9 @@ switch ($proses) {
 				break;
 			case 'update':
 				try {
+					$join['BatasUsia'] = $_POST['BatasUsia'];
+					$join['DokumenKhusus'] = $_POST['DokumenKhusus'];
+					$Kriteria = json_encode($join);
 					$data = array(
 						"Id" => $_POST['Id'],
 						"IdKategori" => $_POST['IdKategori'],
@@ -56,6 +64,8 @@ switch ($proses) {
 						"TglBerlaku" => $_POST['TglBerlaku'],
 						"DeskripsiPekerjaan" => $_POST['DeskripsiPekerjaan'],
 						"Persyaratan" => $_POST['Persyaratan'],
+						"Kriteria" => $Kriteria,
+						"Flag" => $_POST['Flag'],
 						"File" => $_FILES['Flayer'],
 						"Dir" => "../../img/Flayer/"
 					);

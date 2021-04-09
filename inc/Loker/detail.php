@@ -38,15 +38,25 @@ if($_SESSION['Careesma_Level'] == "1"){
                     <?php if($LowonganTerdaftar > 0) { ?>
                             <label class='label label-info'>Lowongan ini telah terdaftar di akun anda</label>
                     <?php }else{ ?>
-                    <?php if($cekDataDaftar > 0) { ?>
-                        <!-- <a class='btn btn-primary' href='#'><i class='fa fa-book'></i> Ujian TKDB</a> -->
-                    <?php }else{ ?>
-                    <?php if($_SESSION['BiodataLengkap'] < 100){ ?>
-                        <button class='btn btn-primary' onclick='Information()'><i class='fa fa-paper-plane'></i> Lamar Sekarang</button>
-                    <?php }else{ ?>
-                        <a href='index.php?page=Lamar&Idx=<?= base64_encode($res['Id']) ?>' class='btn btn-primary'><i class='fa fa-paper-plane'></i> Lamar Sekarang</a>
-                    <?php } ?>
-                    <?php } ?>
+                        <?php if($cekDataDaftar > 0) { ?>
+                            <!-- <a class='btn btn-primary' href='#'><i class='fa fa-book'></i> Ujian TKDB</a> -->
+                        <?php }else{ ?>
+                            <?php if($_SESSION['BiodataLengkap'] < 100){ ?>
+                                <button class='btn btn-primary' onclick='Information()'><i class='fa fa-paper-plane'></i> Lamar Sekarang</button>
+                            <?php }else{ ?>
+                                <?php 
+                                    $cekKualifikasi = cekKualifikasi($res['Id']);
+                                    if($cekKualifikasi['pesan'] == "gagal_usia"){
+                                ?>
+                                    <span class='label label-warning'>Lowongan ini tidak masuk dalam kriteria usia anda</span>
+                                <?php }elseif($cekKualifikasi['pesan'] == "gagal_sertifikat"){ ?>
+                                        <span class='label label-warning'>anda tidak memkiliki lisensi untuk melamar lowongan ini</span>
+                                       
+                                <?php }else{ ?>
+                                    <a href='index.php?page=Lamar&Idx=<?= base64_encode($res['Id']) ?>' class='btn btn-primary'><i class='fa fa-paper-plane'></i> Lamar Sekarang</a>
+                                <?php } ?>
+                            <?php } ?>
+                        <?php } ?>
                     <?php } ?>
                     
                 </span>
@@ -55,6 +65,12 @@ if($_SESSION['Careesma_Level'] == "1"){
     </div>
     <?php } ?>
 </div>
+<?php } else{ ?>
+    <div class="callout callout-warning">
+        <h4>404 Not Found</h4>
+
+        <p>Tidak ada lowongan yang terbuka</p>
+    </div>
 <?php } } ?>
 
 

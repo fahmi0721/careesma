@@ -17,6 +17,11 @@ switch($proses){
 		$res = RealTimeNilaiTkdb();
 		echo json_encode($res);
 		break;
+	case "ExecuteDataLama":
+		$res = ExecuteDataLama();
+		echo json_encode($res);
+		break;
+
 }
 
 ?>

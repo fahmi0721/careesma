@@ -39,7 +39,14 @@ if($_SESSION['Careesma_Level'] == "1"){
                     <?php 
                         if($cekBerkas){
                             if($CekSoal){
-                                echo "<a class='btn btn-primary' href='index.php?page=UjianTkdb&SoalId=".$res['Id']."'><i class='fa fa-book'></i> Ujian TKDB</a>";
+                                $CekWaktu = CekWaktuUjian($res['Id']);
+                                if($CekWaktu == "belum_mulai"){
+                                    echo "<a class='btn btn-primary' href='index.php?page=UjianTkdb&SoalId=".$res['Id']."'><i class='fa fa-book'></i> Ujian TKDB</a>";
+                                }elseif ($CekWaktu == "sedang_berlangsung"){
+                                    echo "<a class='btn btn-warning' href='index.php?page=UjianTkdb&SoalId=".$res['Id']."'><i class='fa fa-book'></i> Sedang Berlangsung</a>";
+                                }else{
+                                    echo "<span class='text-success'>Ujian Telah Selesai</span>";
+                                }
                             }else{
                                 echo "<span class='text-success'>Soal Belum dibuka</span>";
                             }

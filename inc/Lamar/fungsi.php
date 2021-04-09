@@ -9,6 +9,45 @@
         return $r;
     }
 
+    function cekKualifikasi($IdJ){
+        $data_diri = LoadDataDiri();
+        $sql = "SELECT Kriteria FROM careesma_job_vacansy WHERE Id = '$IdJ'";
+        $query = $GLOBALS['db']->query($sql);
+        $r = $query->fetch(PDO::FETCH_ASSOC);   
+        $kriteria = json_decode($r['Kriteria'],true);
+        if(!empty($kriteria)){
+            if(!empty($kriteria['BatasUsia'])){
+                $now = date("Y-m-d H:i:s");
+                $TglLahir = $data_diri['TglLahir']." ".date("H:i:s");
+                $selisih = SelisihWaktu($now,$TglLahir);
+                if($selisih['tahun'] < 17 || $selisih['tahun'] > $kriteria['BatasUsia']){
+                    $res['status'] = FALSE;
+                    $res['pesan'] = "gagal_usia";
+                    return $res;
+                }elseif($kriteria['DokumenKhusus'] == "Ya"){
+                    $cekSertifikat = cekDataSertifikat($data_diri['Id']);
+                    if($cekSertifikat <= 0){
+                        $res['status'] = FALSE;
+                        $res['pesan'] = "gagal_sertifikat";
+                        return $res;
+                    }
+                }
+                
+            }
+        }else{
+            
+            return $res;
+        }
+    }
+
+    function cekDataSertifikat($IdUser){
+        $sql = "SELECT COUNT(Id) as tot FROM careesma_sertifikasi WHERE IdUser = '$IdUser'";
+        $query = $GLOBALS['db']->query($sql);
+        $r = $query->fetch(PDO::FETCH_ASSOC);
+        return $r['tot'];
+
+    }
+
     function ValidasiLamaran($Id,$IdUser){
         $sql = "SELECT COUNT(Id) as tot FROM careesma_daftar WHERE IdJobVacancy = '$Id' AND IdUser = '$IdUser'";
         $query = $GLOBALS['db']->query($sql);

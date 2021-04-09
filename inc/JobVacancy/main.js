@@ -155,6 +155,7 @@ function Clear() {
 	$(".FormInput").val("");
 	$(".FormInput").prop("readonly", false);
 	$(".FormInput").prop("disabled", false);
+	$("#Flag1").prop("checked",true);
 	$("#BtnControl").show();
 	$(".select-category").val(null).trigger("change");
 	$('div[for="Persyaratan"]').find('iframe').contents().find('.wysihtml5-editor').html(null);
@@ -182,14 +183,20 @@ function Crud(Id, Status) {
 					$("#DetailData").hide();
 					$("#BtnControl").hide();
 					$("#aksi").val("update");
-					var iForm = ['Id','IdKategori', 'Judul', 'Kuota', 'TglBerlaku', "DeskripsiPekerjaan", "Persyaratan"];
+					var iForm = ['Id','IdKategori', 'Judul', 'Kuota', 'TglBerlaku', "DeskripsiPekerjaan", "Persyaratan","Flag","BatasUsia","DokumenKhusus"];
 					for (var i = 0; i < iForm.length; i++) {
 						if (iForm[i] == "DeskripsiPekerjaan" || iForm[i] == "Persyaratan"){
 							$('div[for="'+iForm[i]+'"]').find('iframe').contents().find('.wysihtml5-editor').html(data[iForm[i]]);
 						}else{
 							$("#" + iForm[i]).val(data[iForm[i]]);
 						}
-						
+
+						if(iForm[i] == "Flag"){
+							$("#Flag"+data[iForm[i]]).prop("checked",true);
+						}
+						if(iForm[i] == "DokumenKhusus"){
+							$("#DokumenKhusus"+data[iForm[i]]).prop("checked",true);
+						}
 					}
 					$(".select-category").trigger('change');
 					
