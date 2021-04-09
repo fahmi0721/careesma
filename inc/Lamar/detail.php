@@ -15,7 +15,7 @@
         }
     $_SESSION['IdUser'] = $DataDiri['Id'];
     
-    
+    $cekKualifikasi = cekKualifikasi($Idx);
     
 ?>
 <div class="row">
@@ -75,7 +75,17 @@
                     <div class='form-group'>
                         <div class='col-sm-12'>
                             <span class='pull-right'>
-                                <button class='btn btn-primary'><i class='fa fa-check-square'></i> Masukkan Lamaran</button>
+                                <?php 
+                                    if($cekKualifikasi['pesan'] == "gagal_usia"){
+                                ?>
+                                    <span class='label label-warning'>Lowongan ini tidak masuk dalam kriteria usia anda</span>
+                                <?php }elseif($cekKualifikasi['pesan'] == "gagal_sertifikat"){ ?>
+                                        <span class='label label-warning'>anda tidak memkiliki lisensi untuk melamar lowongan ini</span>
+                                       
+                                <?php }else{ ?>
+                                    <button class='btn btn-primary'><i class='fa fa-check-square'></i> Masukkan Lamaran</button>
+                                <?php } ?>
+                                
                             </span>
                         </div>
                         

@@ -2,7 +2,7 @@
 
     function CekSoal($Id){
         $now = date("Y-m-d");
-        $sql = "SELECT COUNT(Id) as tot FROM careesma_tkdb_soal WHERE IdJobVacancy = '$Id' AND DATE_FORMAT(TglCreate, '%Y-%m-%d') = '$now'";
+        $sql = "SELECT COUNT(Id) as tot FROM careesma_tkdb_soal WHERE IdJobVacancy = '$Id'";
         $row = $GLOBALS['db']->query($sql);
         $row = $row->fetch(PDO::FETCH_ASSOC);
         if($row['tot'] > 0){
@@ -10,6 +10,26 @@
         }else{
             return FALSE;
         }
+    }
+    
+    function CekWaktuUjian($IdJ){
+        $IdUser = LoadDataDiri();
+        $IdUser = empty($IdUser['Id']) ? "" : $IdUser['Id'];
+        $Now = date("Y-m-d H:i:s");
+        $sql = "SELECT * FROM careesma_tkdb WHERE UserId = '$IdUser' AND IdJobVacancy = '$IdJ'";
+        $query = $GLOBALS['db']->query($sql);
+        $row = $query->rowCount();
+        if($row > 0){
+            $dt = $query->fetch(PDO::FETCH_ASSOC);
+            if(!empty($dt['WaktuSelesai'])){
+                return "ujian_selesai";
+            }else{
+                return "sedang_berlangsung";
+            }
+        }else{
+            return "belum_mulai";
+        }
+
     }
 
     function LoadData(){

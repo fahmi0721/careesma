@@ -47,8 +47,9 @@
                 while ($res = $query->fetch(PDO::FETCH_ASSOC)) { 
                     if(!empty($res['Flayer']) || file_exists("img/Flayer/".$res['Flayer'])){ $Flayer = "<img src='img/Flayer/".$res['Flayer']."' class='img-responsive' />"; }else{ $Flayer = "-"; }
                     $aksi = "<a class='btn btn-xs btn-primary' data-toggle='tooltip' title='Edit Data' onclick=\"Crud('".$res['Id']."','ubah')\"><i class='fa fa-edit'></i></a> <a class='btn btn-xs btn-danger' data-toggle='tooltip' title='Hapus Data' onclick=\"Crud('".$res['Id']."','hapus')\"><i class='fa fa-trash-o'></i></a>";
+                    $flag = $res['Flag'] === "0" ? "<label class='label label-danger'>Tidak Aktif</label>" : "<label class='label label-success'>Aktif</label>";
                     $res['No'] = $no;
-                    $res['Judul'] = $res['Judul']."<br><small>Kategori Job : ".$res['Nama']."</small>";
+                    $res['Judul'] = $res['Judul']."<br><small>Kategori Job : ".$res['Nama']."<br>".$flag."</small>";
                     $res['Kuota'] = $res['Kuota']." Orang";
                     $res['TglBerlaku'] = tgl_indo($res['TglBerlaku']);
                     $res['Flayer'] = $Flayer;
@@ -116,7 +117,7 @@
                 $Validasi = ValidasiFile($data['File'],$data['Dir']);
                 if( $Validasi['msg'] == "sukses"){
                     $File = $Validasi['pesan'];
-                    $sql = "INSERT INTO careesma_job_vacansy SET IdKategori = :IdKategori, Judul = :Judul,DeskripsiPekerjaan = :DeskripsiPekerjaan, `Flayer` = :Flayer, Kuota = :Kuota, TglBerlaku = :TglBerlaku,  TglCreate = :TglCreate,  Persyaratan = :Persyaratan";
+                    $sql = "INSERT INTO careesma_job_vacansy SET IdKategori = :IdKategori, Judul = :Judul,DeskripsiPekerjaan = :DeskripsiPekerjaan, `Flayer` = :Flayer, Kuota = :Kuota, TglBerlaku = :TglBerlaku,  TglCreate = :TglCreate,  Persyaratan = :Persyaratan, Flag = :Flag, Kriteria = :Kriteria";
                     $exc = $koneksi->prepare($sql);
                     $exc->bindParam('IdKategori', $data['IdKategori'], PDO::PARAM_STR);
                     $exc->bindParam('Judul', $data['Judul'], PDO::PARAM_STR);
@@ -126,6 +127,8 @@
                     $exc->bindParam('TglBerlaku', $data['TglBerlaku'], PDO::PARAM_STR);
                     $exc->bindParam('TglCreate', $data['TglCreate'], PDO::PARAM_STR);
                     $exc->bindParam('Persyaratan', $data['Persyaratan'], PDO::PARAM_STR);
+                    $exc->bindParam('Flag', $data['Flag'], PDO::PARAM_STR);
+                    $exc->bindParam('Kriteria', $data['Kriteria'], PDO::PARAM_STR);
                     $exc->execute();
                     $msg['pesan'] = "Berhasil menambah data ";
                     $msg['status'] = "sukses";
@@ -151,7 +154,7 @@
          $koneksi = $GLOBALS['db'];
           try {
             if(empty($data['File']['name'])){
-                $sql = "UPDATE careesma_job_vacansy SET IdKategori = :IdKategori, Judul = :Judul,DeskripsiPekerjaan = :DeskripsiPekerjaan, Kuota = :Kuota, TglBerlaku = :TglBerlaku,    Persyaratan = :Persyaratan WHERE Id = :Id";
+                $sql = "UPDATE careesma_job_vacansy SET IdKategori = :IdKategori, Judul = :Judul,DeskripsiPekerjaan = :DeskripsiPekerjaan, Kuota = :Kuota, TglBerlaku = :TglBerlaku,    Persyaratan = :Persyaratan, Flag = :Flag, Kriteria = :Kriteria WHERE Id = :Id";
                 $exc = $koneksi->prepare($sql);
                 $exc->bindParam('IdKategori', $data['IdKategori'], PDO::PARAM_STR);
                 $exc->bindParam('Judul', $data['Judul'], PDO::PARAM_STR);
@@ -159,6 +162,8 @@
                 $exc->bindParam('Kuota', $data['Kuota'], PDO::PARAM_STR);
                 $exc->bindParam('TglBerlaku', $data['TglBerlaku'], PDO::PARAM_STR);
                 $exc->bindParam('Persyaratan', $data['Persyaratan'], PDO::PARAM_STR);
+                $exc->bindParam('Flag', $data['Flag'], PDO::PARAM_STR);
+                $exc->bindParam('Kriteria', $data['Kriteria'], PDO::PARAM_STR);
                 $exc->bindParam('Id', $data['Id'], PDO::PARAM_STR);
                 $exc->execute();
                 $msg['pesan'] = "Berhasil mengubah data ";
@@ -169,7 +174,7 @@
                 $Validasi = ValidasiFile($data['File'],$data['Dir']);
                 if( $Validasi['msg'] == "sukses"){
                     $File = $Validasi['pesan'];
-                    $sql = "UPDATE careesma_job_vacansy SET IdKategori = :IdKategori, Judul = :Judul,DeskripsiPekerjaan = :DeskripsiPekerjaan, `Flayer` = :Flayer, Kuota = :Kuota, TglBerlaku = :TglBerlaku,   Persyaratan = :Persyaratan WHERE Id = :Id";
+                    $sql = "UPDATE careesma_job_vacansy SET IdKategori = :IdKategori, Judul = :Judul,DeskripsiPekerjaan = :DeskripsiPekerjaan, `Flayer` = :Flayer, Kuota = :Kuota, TglBerlaku = :TglBerlaku,   Persyaratan = :Persyaratan, Flag = :Flag, Kriteria = :Kriteria WHERE Id = :Id";
                     $exc = $koneksi->prepare($sql);
                     $exc->bindParam('IdKategori', $data['IdKategori'], PDO::PARAM_STR);
                     $exc->bindParam('Judul', $data['Judul'], PDO::PARAM_STR);
@@ -178,6 +183,8 @@
                     $exc->bindParam('Kuota', $data['Kuota'], PDO::PARAM_STR);
                     $exc->bindParam('TglBerlaku', $data['TglBerlaku'], PDO::PARAM_STR);
                     $exc->bindParam('Persyaratan', $data['Persyaratan'], PDO::PARAM_STR);
+                    $exc->bindParam('Flag', $data['Flag'], PDO::PARAM_STR);
+                    $exc->bindParam('Kriteria', $data['Kriteria'], PDO::PARAM_STR);
                     $exc->bindParam('Id', $data['Id'], PDO::PARAM_STR);
                     $exc->execute();
                     HapusFile($ImgTemp['Flayer'],$data['Dir']);
@@ -236,6 +243,14 @@
         $exc->bindParam("Id", $Id, PDO::PARAM_INT);
         $exc->execute();
         $dt = $exc->fetch(PDO::FETCH_ASSOC);
+        if(empty($dt['Kriteria'])){
+            $dt['BatasUsia'] = "";
+            $dt['DokumenKhusus'] = "Tidak";
+        }else{
+            $rs = json_decode($dt['Kriteria'],true);
+            $dt['BatasUsia'] = $rs['BatasUsia'];
+            $dt['DokumenKhusus'] = $rs['DokumenKhusus'];
+        }
         return $dt;
     }
 
