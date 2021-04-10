@@ -132,7 +132,12 @@
                                 <option value='BUDHA' <?php if($DataDiri['Agama'] == "BUDHA"){ echo "selected"; } ?>>BUDHA</option>
                                 <option value='KONGHUCU' <?php if($DataDiri['Agama'] == "KONGHUCU"){ echo "selected"; } ?>>KONGHUCU</option>
                             </select>
-                            
+
+                            <label class='control-label'>File Ijazah & KTP</label><br>
+                            <div class='btn-group'>
+                                <a href="img/Ijazah/<?= $DataDiri['FileIjazah'] ?>" target='_blank' data-toggle='tooltip' title='Lihat Ijazah' class='btn btn-success btn-sm'><i class='fa fa-book'></i> Ijazah Terakhir</a>
+                                <a href="img/Ktp/<?= $DataDiri['FileKtp'] ?>" target='_blank' data-toggle='tooltip' title='Lihat KTP' class='btn btn-warning btn-sm'><i class='fa fa-book'></i> KTP</a>
+                            </div>
                         </div>
                         <div class='col-md-6'>
                             <label class='control-label'>Alamat <span class='text-danger'>*</span></label>
