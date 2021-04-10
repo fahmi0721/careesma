@@ -74,6 +74,7 @@
                 $res['status'] = "sukses";
                 $res['pesan'] = "berhail";
             }else{
+                $pend = strtoupper($data['Pendidikan']);
                 $sql = "UPDATE careesma_data_diri SET TptLahir = :TptLahir, TglLahir = :TglLahir, JK = :JK, Pendidikan = :Pendidikan, NoHp = :NoHp, Agama = :Agama, Alamat = :Alamat WHERE Id = :Id";
                 $query = $koneksi->prepare($sql);
                 $query->bindParam("TptLahir",$data['TptLahir']);
